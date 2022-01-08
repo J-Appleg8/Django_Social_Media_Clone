@@ -12,6 +12,7 @@ class CreateGroup(LoginRequiredMixin, CreateView):
 
 class SingleGroup(DetailView):
     model = Group
+    slug_url_kwarg = "single_slug"
 
 
 class ListGroups(ListView):
