@@ -42,8 +42,6 @@ class JoinGroup(LoginRequiredMixin, RedirectView):
 
 
 class LeaveGroup(LoginRequiredMixin, RedirectView):
-    # slug_url_kwarg = "leave_slug"
-
     def get_redirect_url(self, *args, **kwargs):
         return reverse("groups:single", kwargs={"slug": self.kwargs.get("slug")})
 
@@ -52,9 +50,11 @@ class LeaveGroup(LoginRequiredMixin, RedirectView):
             membership = GroupMember.objects.filter(
                 user=self.request.user, group__slug=self.kwargs.get("slug")
             ).get()
+
         except GroupMember.DoesNotExist:
-            messages.warning(self.request, "Sorry you aren't in this group!")
+            messages.warning(self.request, "You can't leave this group because you aren't in it.")
+
         else:
             membership.delete()
-            messages.success(self.request, "You have left the group!")
-            return super().get(request, *args, **kwargs)
+            messages.success(self.request, "You have successfully left this group.")
+        return super().get(request, *args, **kwargs)
