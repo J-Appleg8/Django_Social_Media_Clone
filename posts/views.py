@@ -13,7 +13,7 @@ User = get_user_model()
 
 class PostList(SelectRelatedMixin, ListView):
     model = Post
-    select_related = ("user", "group")
+    select_related = ["user", "group"]
 
 
 class UserPosts(ListView):
@@ -22,7 +22,7 @@ class UserPosts(ListView):
 
     def get_queryset(self):
         try:
-            self.post.user = User.objects.prefetch_related("posts").get(
+            self.post_user = User.objects.prefetch_related("posts").get(
                 username__iexact=self.kwargs.get("username")
             )
         except User.DoesNotExist:
@@ -46,8 +46,8 @@ class PostDetail(SelectRelatedMixin, DetailView):
 
 
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, CreateView):
-    fields = ("message", "group")
-    models = Post
+    model = Post
+    fields = ["message", "group"]
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -58,7 +58,7 @@ class CreatePost(LoginRequiredMixin, SelectRelatedMixin, CreateView):
 
 class DeletePost(LoginRequiredMixin, SelectRelatedMixin, DeleteView):
     model = Post
-    select_related = ("user", "group")
+    select_related = ["user", "group"]
     success_url = reverse_lazy("posts:all")
 
     def get_queryset(self):

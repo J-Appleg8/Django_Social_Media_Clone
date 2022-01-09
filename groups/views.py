@@ -3,13 +3,14 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView, RedirectView
+from django.views.generic import DetailView, ListView, RedirectView
+from django.views.generic.edit import CreateView
 from groups.models import Group, GroupMember
 
 
 class CreateGroup(LoginRequiredMixin, CreateView):
-    fields = ("name", "description")
     model = Group
+    fields = ["name", "description"]
 
 
 class SingleGroup(DetailView):
