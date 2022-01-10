@@ -4,3 +4,45 @@ body {
   background-color: black;
   color: white;
 }
+
+.navbar {
+  background-image: linear-gradient(rgb(15, 15, 15), black);
+  padding: 15px;
+}
+
+.nav-item:hover {
+  border-radius: 4px;
+}
+
+.mydropdown:hover {
+  color: #007bff;
+}
+
+.dropdown-menu {
+  background-image: linear-gradient(rgb(15, 15, 15), black);
+}
+
+.dropdown-item {
+  color: #007bff;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(15, 15, 15);
+  color: #007bff;
+}
+
+.jumbotron {
+  background-color: black;
+}
+
+.mycontent {
+  padding-top: 10px;
+}
+
+.media {
+  padding-top: 15px;
+}
+
+.media-body {
+  padding-top: 5px;
+}
